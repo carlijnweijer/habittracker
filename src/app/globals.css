@@ -4,13 +4,17 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #37352f;
+  --backgroundSecondary: rgb(248, 248, 247);
+  --backgroundTertiary: rgb(240, 240, 239);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: rgb(25, 25, 25);
+    --backgroundSecondary: rgb(32, 32, 32);
+    --backgroundTertiary: rgb(40, 40, 40);
+    --foreground: #ebebeb;
   }
 }
 

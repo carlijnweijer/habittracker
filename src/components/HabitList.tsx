@@ -25,7 +25,7 @@ const HabitList = () => {
 
   // Load habits from localStorage or use initialHabits
   const [habits, setHabits] = useState(() => {
-    const savedHabits = localStorage.getItem("habits");
+    const savedHabits = window.localStorage.getItem("habits");
     return savedHabits ? JSON.parse(savedHabits) : initialHabits;
   });
 
@@ -43,8 +43,7 @@ const HabitList = () => {
 
   // Save habits to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem("habits", JSON.stringify(habits));
-    console.log("Habits saved to localStorage", habits);
+    window.localStorage.setItem("habits", JSON.stringify(habits));
   }, [habits]);
 
   // Toggle habit completion
@@ -76,7 +75,7 @@ const HabitList = () => {
   };
 
   return (
-    <ul className="flex flex-col gap-4 bg-gray-100 p-4 rounded">
+    <ul className="flex flex-col gap-4 bg-backgroundSecondary p-4 rounded">
       {habits.map((habit: HabitType) => (
         <Habit
           key={habit.id}

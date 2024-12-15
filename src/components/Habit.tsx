@@ -9,13 +9,13 @@ interface HabitProps extends HabitType {
 
 const Habit = ({ name, completed, streak, onClick }: HabitProps) => {
   return (
-    <li className="grid grid-cols-[30px_1fr] p-2 bg-white rounded list-none border min-w-[220px]">
+    <li className="grid grid-cols-[30px_1fr] p-2 bg-backgroundTertiary rounded list-none min-w-[220px]">
       <div className="col-start-1 flex items-center justify-center">
         <AnimatedCheckIcon isVisible={completed} />
       </div>
 
       <motion.button
-        className="col-start-2 flex items-center justify-end w-full p-2 gap-1 text-right text-gray-800"
+        className="col-start-2 flex items-center justify-end w-full p-2 gap-1 text-right"
         whileTap={{ scale: 0.9 }}
         onClick={onClick}
       >
@@ -44,7 +44,7 @@ function AnimatedCheckIcon({
           viewBox="0 0 24 24"
           strokeWidth={2.5}
           className="stroke-emerald-400"
-          width={24}
+          width={20}
         >
           <motion.path
             initial={{ pathLength: 0 }}
