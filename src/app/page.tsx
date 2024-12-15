@@ -1,3 +1,6 @@
+"use client";
+
+import HabitList from "@/components/HabitList";
 import Header from "@/components/layout/Header";
 
 export default function Home() {
@@ -6,8 +9,8 @@ export default function Home() {
       <header className="row-start-1 flex items-center justify-center">
         <Header />
       </header>
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start font-bold text-2xl">
-        <p>hello world</p>
+      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        <HabitList />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <h3>footer</h3>
