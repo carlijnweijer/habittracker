@@ -1,7 +1,13 @@
+export interface HabitEntry {
+  id: string;
+  completed: string | null;
+  count?: number;
+}
+
 export interface Habit {
-  id: number;
+  id: string;
   name: string;
-  completed: boolean;
-  streak: number;
   lastCompleted: string | null;
+  streak: number;
+  entries: HabitEntry[];
 }

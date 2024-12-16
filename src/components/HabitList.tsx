@@ -6,21 +6,18 @@ import Habit from "./Habit";
 
 const HabitList = () => {
   const today = new Date().toDateString();
-  const daysThisMonth = new Date(2024, 12, 0).getDate();
-  const firstDayOfMonth = new Date(2024, 12).getDay();
 
-  console.log("days this month", daysThisMonth);
-  console.log("first day of month", firstDayOfMonth);
-
-  const initialHabits = [
+  const initialHabits: HabitType[] = [
     {
-      id: 1,
+      id: "1",
       name: "Exercise",
-      completed: false,
       streak: 0,
-      lastCompleted: null,
+      lastCompleted: "12-12-2024",
+      entries: [
+        { id: "1", completed: "11-12-2024" },
+        { id: "2", completed: "12-12-2024" },
+      ],
     },
-    { id: 2, name: "Read", completed: false, streak: 0, lastCompleted: null },
   ];
 
   // Load habits from localStorage or use initialHabits
@@ -46,42 +43,46 @@ const HabitList = () => {
     window.localStorage.setItem("habits", JSON.stringify(habits));
   }, [habits]);
 
-  // Toggle habit completion
-  const toggleHabit = (id: number) => {
+  const handleUpdateEntries = (updatedHabit: HabitType) => {
     setHabits((prevHabits: HabitType[]) =>
-      prevHabits.map((habit: HabitType) => {
-        if (habit.id === id) {
-          if (habit.completed) {
-            // If unchecking, reset the streak
-            return {
-              ...habit,
-              completed: false,
-              streak: habit.streak - 1,
-              lastCompleted: null,
-            };
-          } else {
-            // If checking, increment the streak and update lastCompleted
-            return {
-              ...habit,
-              completed: true,
-              streak: habit.streak + 1,
-              lastCompleted: today,
-            };
-          }
-        }
-        return habit;
-      })
+      prevHabits.map((habit) =>
+        habit.id === updatedHabit.id ? updatedHabit : habit
+      )
     );
   };
+
+  // // Toggle habit completion
+  // const toggleHabit = (id: string) => {
+  //   setHabits((prevHabits: HabitType[]) =>
+  //     prevHabits.map((habit: HabitType) => {
+  //       if (habit.id === id) {
+  //         if (habit.completed) {
+  //           // If unchecking, reset the streak
+  //           return {
+  //             ...habit,
+  //             completed: false,
+  //             streak: habit.streak - 1,
+  //             lastCompleted: null,
+  //           };
+  //         } else {
+  //           // If checking, increment the streak and update lastCompleted
+  //           return {
+  //             ...habit,
+  //             completed: true,
+  //             streak: habit.streak + 1,
+  //             lastCompleted: today,
+  //           };
+  //         }
+  //       }
+  //       return habit;
+  //     })
+  //   );
+  // };
 
   return (
     <ul className="flex flex-col gap-4 bg-backgroundSecondary p-4 rounded">
       {habits.map((habit: HabitType) => (
-        <Habit
-          key={habit.id}
-          {...habit}
-          onClick={() => toggleHabit(habit.id)}
-        />
+        <Habit key={habit.id} {...habit} onUpdate={handleUpdateEntries} />
       ))}
     </ul>
   );
