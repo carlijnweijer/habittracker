@@ -65,6 +65,7 @@ const HabitCalendar: React.FC<HabitCalendarProps> = ({ habit, onClick }) => {
       lastCompleted: dateString,
       entries: updatedEntries,
     };
+
     onClick(updatedHabit);
     setEntries(updatedEntries);
     return updatedEntries;

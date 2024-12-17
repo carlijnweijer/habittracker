@@ -1,30 +1,16 @@
 "use client";
 
 import { Habit as HabitType } from "@/types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Habit from "./Habit";
 
-const HabitList = () => {
+interface HabitListProps {
+  habits: HabitType[];
+  setHabits: React.Dispatch<React.SetStateAction<HabitType[]>>;
+}
+
+const HabitList: React.FC<HabitListProps> = ({ habits, setHabits }) => {
   const today = new Date().toDateString();
-
-  const initialHabits: HabitType[] = [
-    {
-      id: "1",
-      name: "Exercise",
-      streak: 0,
-      lastCompleted: "12-12-2024",
-      entries: [
-        { id: "1", completed: "11-12-2024" },
-        { id: "2", completed: "12-12-2024" },
-      ],
-    },
-  ];
-
-  // Load habits from localStorage or use initialHabits
-  const [habits, setHabits] = useState(() => {
-    const savedHabits = window.localStorage.getItem("habits");
-    return savedHabits ? JSON.parse(savedHabits) : initialHabits;
-  });
 
   // Reset completed state if lastCompleted is not today
   useEffect(() => {
@@ -36,7 +22,7 @@ const HabitList = () => {
         return habit;
       })
     );
-  }, [today]);
+  }, [today, setHabits]);
 
   // Save habits to localStorage whenever they change
   useEffect(() => {
@@ -51,36 +37,8 @@ const HabitList = () => {
     );
   };
 
-  // // Toggle habit completion
-  // const toggleHabit = (id: string) => {
-  //   setHabits((prevHabits: HabitType[]) =>
-  //     prevHabits.map((habit: HabitType) => {
-  //       if (habit.id === id) {
-  //         if (habit.completed) {
-  //           // If unchecking, reset the streak
-  //           return {
-  //             ...habit,
-  //             completed: false,
-  //             streak: habit.streak - 1,
-  //             lastCompleted: null,
-  //           };
-  //         } else {
-  //           // If checking, increment the streak and update lastCompleted
-  //           return {
-  //             ...habit,
-  //             completed: true,
-  //             streak: habit.streak + 1,
-  //             lastCompleted: today,
-  //           };
-  //         }
-  //       }
-  //       return habit;
-  //     })
-  //   );
-  // };
-
   return (
-    <ul className="flex flex-col gap-4 bg-backgroundSecondary p-4 rounded">
+    <ul className="flex flex-col gap-4 bg-backgroundSecondary p-4 rounded border border-backgroundTertiary">
       {habits.map((habit: HabitType) => (
         <Habit key={habit.id} {...habit} onUpdate={handleUpdateEntries} />
       ))}
