@@ -29,7 +29,7 @@ const HabitList: React.FC<HabitListProps> = ({ habits, setHabits }) => {
     window.localStorage.setItem("habits", JSON.stringify(habits));
   }, [habits]);
 
-  const handleUpdateEntries = (updatedHabit: HabitType) => {
+  const handleUpdateHabit = (updatedHabit: HabitType) => {
     setHabits((prevHabits: HabitType[]) =>
       prevHabits.map((habit) =>
         habit.id === updatedHabit.id ? updatedHabit : habit
@@ -40,7 +40,7 @@ const HabitList: React.FC<HabitListProps> = ({ habits, setHabits }) => {
   return (
     <ul className="flex flex-col gap-4 bg-backgroundSecondary p-4 rounded border border-backgroundTertiary">
       {habits.map((habit: HabitType) => (
-        <Habit key={habit.id} {...habit} onUpdate={handleUpdateEntries} />
+        <Habit key={habit.id} {...habit} onUpdate={handleUpdateHabit} />
       ))}
     </ul>
   );
